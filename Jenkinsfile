@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Global variables
-        IMAGE_NAME = 'your-dockerhub-username/your-image-name'
+        IMAGE_NAME = 'houda2024/devpopsprojectmicro'
         TAG = 'latest'
     }
 

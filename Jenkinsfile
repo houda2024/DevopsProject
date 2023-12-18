@@ -5,7 +5,7 @@ pipeline {
         // Global variables
         IMAGE_NAME = 'houda2024/devpopsprojectmicro'
         TAG = 'latest'
-        
+        REGISTRY_URL = 'https://index.docker.io/v1/'
     }
 
     stages {
@@ -24,7 +24,7 @@ pipeline {
                 script {
                     echo '=== Build ==='
                     // Build Docker image
-                    docker.build("${IMAGE_NAME}:${TAG}")
+                    
                 }
             }
         }
@@ -33,7 +33,6 @@ pipeline {
             steps {
                 script {
                     echo '=== Testing ==='
-                    
                     // Perform unit or integration tests
                     // Add your testing commands or scripts here
                 }
@@ -44,10 +43,8 @@ pipeline {
             steps {
                 script {
                     echo '=== Push to DockerHub ==='
-                    // Push the built image to DockerHub
-                    docker.withRegistry(REGISTRY_URL, DOCKERHUB_CREDENTIALS_ID) {
-                        docker.image("${IMAGE_NAME}:${TAG}").push()
-                    }
+                    // Push the built image to DockerHub without explicit credentials
+                    
                 }
             }
         }

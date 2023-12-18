@@ -11,6 +11,8 @@ pipeline {
         stage('Initialization') {
             steps {
                 script {
+                    echo 'Initializing global variables or performing setup...'
+
                     // Initialize global variables or perform any setup
                 }
             }
@@ -28,6 +30,7 @@ pipeline {
         stage('Testing') {
             steps {
                 script {
+                    echo 'Performing unit or integration tests...'
                     // Perform unit or integration tests
                     // Add your testing commands or scripts here
                 }
@@ -48,6 +51,8 @@ pipeline {
         stage('Cleanup') {
             steps {
                 script {
+                    echo 'Cleaning up resources or performing cleanup steps...'
+
                     // Clean up resources or perform any cleanup steps
                 }
             }

@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  devpopsprojectmicro:
+    image: houda2024/devpopsprojectmicro:latest
+    ports:
+      - "3000:3000"
+    # Add any additional configuration specific to your microservice

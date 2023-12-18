@@ -1,29 +1,56 @@
-
 pipeline {
     agent any
-    triggers {
-        pollSCM('*/5 * * * *') // Vérifier toutes les 5 minutes
+
+    environment {
+        // Global variables
+        IMAGE_NAME = 'your-dockerhub-username/your-image-name'
+        TAG = 'latest'
     }
+
     stages {
-        stage('Checkout') {
+        stage('Initialization') {
             steps {
-                echo "Récupération du code source"
-                checkout scm
+                script {
+                    // Initialize global variables or perform any setup
+                }
             }
         }
+
         stage('Build') {
             steps {
-                echo "Build du projet"
-
-                // Ajoutez les commandes de build ici
-
+                script {
+                    // Build Docker image
+                    docker.build("${IMAGE_NAME}:${TAG}")
                 }
+            }
         }
-        stage('Deploy') {
+
+        stage('Testing') {
             steps {
-                echo "Déploiement du projet"
-                // Ajoutez les commandes de déploiement ici
+                script {
+                    // Perform unit or integration tests
+                    // Add your testing commands or scripts here
                 }
+            }
+        }
+
+        stage('Push to DockerHub') {
+            steps {
+                script {
+                    // Push the built image to DockerHub
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials-id') {
+                        docker.image("${IMAGE_NAME}:${TAG}").push()
+                    }
+                }
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
+                script {
+                    // Clean up resources or perform any cleanup steps
+                }
+            }
         }
     }
 }

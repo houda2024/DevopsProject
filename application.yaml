@@ -2,17 +2,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: micro-livraria
-  namespace: default
+  namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://github.com/houda2024/micro-livraria.git
-    targetRevision: main
-    path: manifests
+    repoURL: https://github.com/houda2024/DevopsProject.git
+    targetRevision: HEAD
+    path: micro-livraria
   destination:
-    server: 'https://kubernetes.default.svc'
+    server: https://kubernetes.default.svc
     namespace: micro-livraria
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true

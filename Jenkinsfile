@@ -5,15 +5,17 @@ pipeline {
         // Global variables
         IMAGE_NAME = 'houda2024/devpopsprojectmicro'
         TAG = 'latest'
+        DOCKERHUB_CREDENTIALS_ID = '6703e9d2-1dc9-4b4d-8e49-58571d98b4f1'
+        REGISTRY_URL = 'https://registry.hub.docker.com'
     }
 
     stages {
         stage('Initialization') {
             steps {
                 script {
-                    echo 'Initializing global variables or performing setup...'
-
+                    echo '=== Initialization ==='
                     // Initialize global variables or perform any setup
+                    // You may add additional setup steps here
                 }
             }
         }
@@ -21,8 +23,9 @@ pipeline {
         stage('Build') {
             steps {
                 script {
+                    echo '=== Build ==='
                     // Build Docker image
-                    docker.build("${IMAGE_NAME}:${TAG}")
+                    docker.build('houda2024/devpopsprojectmicro')
                 }
             }
         }
@@ -30,7 +33,8 @@ pipeline {
         stage('Testing') {
             steps {
                 script {
-                    echo 'Performing unit or integration tests...'
+                    echo '=== Testing ==='
+                    sh 'npm test'
                     // Perform unit or integration tests
                     // Add your testing commands or scripts here
                 }
@@ -40,9 +44,10 @@ pipeline {
         stage('Push to DockerHub') {
             steps {
                 script {
+                    echo '=== Push to DockerHub ==='
                     // Push the built image to DockerHub
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials-id') {
-                        docker.image("${IMAGE_NAME}:${TAG}").push()
+                    docker.withRegistry(REGISTRY_URL, DOCKERHUB_CREDENTIALS_ID) {
+                        docker.image('houda2024/devpopsprojectmicro').push()
                     }
                 }
             }
@@ -51,9 +56,9 @@ pipeline {
         stage('Cleanup') {
             steps {
                 script {
-                    echo 'Cleaning up resources or performing cleanup steps...'
-
+                    echo '=== Cleanup ==='
                     // Clean up resources or perform any cleanup steps
+                    // You may add additional cleanup steps here
                 }
             }
         }

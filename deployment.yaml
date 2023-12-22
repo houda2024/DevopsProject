@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devopsprojectmicro-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: devopsprojectmicro
+  template:
+    metadata:
+      labels:
+        app: devopsprojectmicro
+    spec:
+      containers:
+        - name: devopsprojectmicro
+          image: houda24/devpopsprojectmicro:latest
+          ports:
+            - containerPort: 80
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
